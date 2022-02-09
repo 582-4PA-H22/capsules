@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capsule ES6+ #1 : fonctions fléchées</title>
+</head>
+<body>
+  <h2>
+    Capsule ES6+ #1
+  </h2>
+  <h4>Les exemples dans ce fichier sont expliqués dans cette <a href="" title="Capsule ES6+ #1" target="_blank">capsule vidéo</a>.</h4>
+  <h3>Références</h3>
+  <dl>
+    <dt>MDN : Intro facile et aussi disponible en français</dt>
+    <dd><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions</a></dd>
+    <dt>ExploringJS : Plus complet, mais parfois difficile à suivre</dt>
+    <dd><a href="https://exploringjs.com/es6/ch_arrow-functions.html" target="_blank">https://exploringjs.com/es6/ch_arrow-functions.html</a></dd>
+  </dl>
+
+  <hr><hr><hr>
+  <p>
+    Ce qui suit fait partie des exemples discutés dans la capsule
+    (<i>Consulter le code source et la console de votre navigateur.</i>)
+  </p>
+  <hr>
+  <code>
+    <ul id="listeFruits">
+      <li ref="Pamplemousse_et_pomélo">Pamplemousse et pomélo</li>
+      <li ref="Grenade_(fruit)">Grenade</li>
+      <li ref="Orange_(fruit)">Orange</li>
+    </ul>
+  </code>
+  <script>
+    // Exemple 1 : fonction simple qui retourne le résultat d'un calcul
+    // Avec une déclaration de fonction
+    // function nombreDeMersenne(n) {
+    //   return 2*n - 1;
+    // }
+    // Avec la fonction fléchée équivalente (expression)
+    let nombreDeMersenne = n => 2*n - 1; 
+
+    // Test
+    //console.log("Nombre de Mersenne avec n=3 (déclaration de fonction) : ", nombreDeMersenne(3));
+    console.log("Nombre de Mersenne avec n=3 (fonction fléchées) : ", nombreDeMersenne(2000));
+    
+    /*****************************************************************************************************/
+
+    // Exemple 2 : trier un tableau numériquement avec la méthode Array.sort()
+    const tab = [34, 5, 76, 98765, 23, 1.4, 1000];
+
+    // Tests 
+    // Test 1 : Tri par défaut (Alphanumérique ASCII)
+    // tab.sort();
+    // console.log('Tableau trié par défaut : ', tab);
+
+    // Test 2 : Avec une fonction de tri donnée en "callback" (fonction de rappel) comme une expression de fonction
+    // tab.sort(function(a,b) {
+    //   return a-b;
+    // });
+    // console.log('Tableau trié avec la fonction de rappel (expression de fonction) : ', tab);
+
+    // Test 2 : Avec une fonction de tri donnée en "callback" (fonction de rappel) comme une fonction fléchée
+    tab.sort((a,b) => b-a);
+    console.log('Tableau trié avec la fonction de rappel (fonction fléchée) : ', tab);
+    
+
+    /*****************************************************************************************************/
+
+    // Exemple 3 : gestionnaire d'événement et minuterie interne
+    
+    // Test 1 : le contexte du mot clé 'this' est réécrit par l'expression de fonction (function() {})
+    // document.querySelector("#listeFruits li").addEventListener('click', function() {
+    //   console.log("this à l'intérieur du gestionnaire d'événement : ", this);
+    //   console.log("Attribut ref de this : ", this.getAttribute('ref'));
+    //   let that = this;
+    //   setTimeout(function() {
+    //     console.log("this à l'intérieur de la minuterie : ", this);
+    //     console.log("variable 'thisFixe' à l'intérieur de la minuterie : ", that);
+    //     window.open('https://fr.wikipedia.org/wiki/' + that.getAttribute('ref'), '_blank');
+    //   }, 1000);
+    // });
+  
+    // Test 2 : le contexte du mot clé 'this' est ***préservé*** par la fonction fléchée (() => instruction)
+    document.querySelector("#listeFruits li").addEventListener('click', function() {
+        setTimeout(() => window.open('https://fr.wikipedia.org/wiki/' + this.getAttribute('ref'), '_blank'), 1000)
+      }
+    );
+  </script>
+</body>
+</html>
